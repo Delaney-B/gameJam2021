@@ -16,24 +16,38 @@ public class Metronome : MonoBehaviour {
         return _instance;
     }
 
-    public float TickRemainingPercentage {
+    public float BeatTime => 60f / beatsPerMinute;
+
+    public float BeatProximity {
         get {
-            float tickTime = 60f / beatsPerMinute;
-            return _tickCountdown / tickTime;
+            float nextDiff = _nextTick - Time.fixedTime;
+            float nextProximity = Mathf.Clamp01(Mathf.Abs(nextDiff / BeatTime));
+            float prevDiff = _prevTick - Time.fixedTime;
+            float prevProximity = Mathf.Clamp01(Mathf.Abs(prevDiff / BeatTime));
+
+            return Math.Min(nextProximity, prevProximity);
+        }
+    }
+
+    public float BeatProgress {
+        get {
+            float diff = _nextTick - Time.fixedTime;
+            return Mathf.Clamp01(diff / BeatTime);
         }
     }
 
     [SerializeField] private int beatsPerMinute = 60;
     public UnityEvent tickEvent;
 
-    private float _tickCountdown = 0f;
+    private float _nextTick = 0f;
+    private float _prevTick = 0f;
 
-    private void Update() {
-        _tickCountdown -= Time.deltaTime;
-        if (_tickCountdown <= 0f) {
+    private void FixedUpdate() {
+        if (Time.fixedTime >= _nextTick) {
             tickEvent?.Invoke();
 
-            _tickCountdown = 60f / beatsPerMinute;
+            _prevTick = _nextTick;
+            _nextTick = Time.fixedTime + 60f / beatsPerMinute;
         }
     }
 }
