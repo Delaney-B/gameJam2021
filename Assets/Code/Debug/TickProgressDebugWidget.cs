@@ -20,7 +20,7 @@ public class TickProgressDebugWidget : MonoBehaviour {
     private void Update() {
         var metronome = Metronome.GetInstance();
 
-        debugSlider.value = metronome.BeatProgress;
+        debugSlider.value = metronome.BeatRemaining;
     }
 
     private void TickCallback() {

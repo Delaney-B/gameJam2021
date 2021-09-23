@@ -29,12 +29,14 @@ public class Metronome : MonoBehaviour {
         }
     }
 
-    public float BeatProgress {
+    public float BeatRemaining {
         get {
             float diff = _nextTick - Time.fixedTime;
             return Mathf.Clamp01(diff / BeatTime);
         }
     }
+
+    public float BeatProgress => 1f - BeatRemaining;
 
     [SerializeField] private int beatsPerMinute = 60;
     public UnityEvent tickEvent;

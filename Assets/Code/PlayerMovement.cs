@@ -1,7 +1,11 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour {
+    private static readonly int Direction = Animator.StringToHash("Direction");
+
     private CalmciergeControls _controls;
     private InputAction _movement;
 
@@ -13,6 +17,8 @@ public class PlayerMovement : MonoBehaviour {
     private bool _moving = false;
     private float _moveSpeed;
     private Vector2 _moveTarget = Vector2.zero;
+
+    [SerializeField] private Animator playerAnimator;
 
     private void Awake() {
         _controls = new CalmciergeControls();
@@ -45,10 +51,16 @@ public class PlayerMovement : MonoBehaviour {
             if (Mathf.Abs(movementValue.x) > 0.5f) {
                 _moveTarget = gridPosition + new Vector2(Mathf.Sign(movementValue.x), 0f);
                 _wantsMove = true;
+
+                playerAnimator.SetInteger(Direction, movementValue.x > 0f ? 1 : 3);
+                PerformMove();
             }
             else if (Mathf.Abs(movementValue.y) > 0.5f) {
                 _moveTarget = gridPosition + new Vector2(0f, Mathf.Sign(movementValue.y));
                 _wantsMove = true;
+
+                playerAnimator.SetInteger(Direction, movementValue.y > 0f ? 0 : 2);
+                PerformMove();
             }
         }
         else {
@@ -63,17 +75,36 @@ public class PlayerMovement : MonoBehaviour {
             Vector3 newPosition = Vector2.MoveTowards(position, _moveTarget, Time.deltaTime * (1f / _moveSpeed));
 
             transform.position = newPosition;
+
+            if (Vector3.Distance(_moveTarget, newPosition) < 0.05f) {
+                _moving = false;
+                playerAnimator.SetInteger(Direction, -1);
+            }
+        }
+    }
+
+    private void PerformMove() {
+        var metronome = Metronome.GetInstance();
+        float panicModifier = 1f / (_panic + 1);
+        _panic = Mathf.Max(_panic - 1, 0);
+
+        if (metronome.BeatProgress > beatThreshold) {
+            // If right before tick, move at tick
+            _moveSpeed = metronome.BeatTime * panicModifier;
+            _wantsMove = true;
+        }
+        else {
+            // Otherwise, move immediately, in a shortened span
+            _moveSpeed = metronome.BeatTime * metronome.BeatRemaining * panicModifier;
+            _wantsMove = false;
+            _moving = true;
         }
     }
 
     private void Tick() {
         if (_wantsMove) {
-            float panicModifier = 1f / (_panic + 1);
-            _moveSpeed = Metronome.GetInstance()
-                             .BeatTime *
-                         panicModifier;
             _moving = true;
-            _panic = Mathf.Max(_panic - 1, 0);
+            _wantsMove = false;
         }
         else {
             // We're not moving; increase panic!
