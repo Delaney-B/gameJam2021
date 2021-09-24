@@ -9,6 +9,8 @@ public class Minigame : MonoBehaviour
     public event System.Action<NoteInfo> OnLookAhead;
     public event System.Action<NoteInfo, HitType> OnHit;
 
+    [Tooltip("The path to the MIDI file relative to Assets")]
+    public string midiPath;
 
     private NoteInfo[] trackInfo;
 
@@ -35,6 +37,7 @@ public class Minigame : MonoBehaviour
     private float timePerTick;
 
     private bool isMinigameActive;
+    private bool isInitialized;
 
     private List<NoteInfo> hitList;
 
@@ -79,7 +82,12 @@ public class Minigame : MonoBehaviour
 
     protected virtual void Start()
     {
-        MidiParser.ReadMidiFile();
+        if (!MidiParser.ReadMidiFile(midiPath))
+        {
+            Debug.LogError($"MIDI file {midiPath} could not be loaded");
+            isInitialized = false;
+            return;
+        }
         trackInfo = MidiParser.GetTrackInfo();
         bpm = MidiParser.bpm;
         ppq = MidiParser.ppq;
@@ -88,6 +96,7 @@ public class Minigame : MonoBehaviour
         currentTick = 0;
         realtime = 0;
         isMinigameActive = false;
+        isInitialized = true;
     }
 
     protected void BeginMinigame()
@@ -97,6 +106,11 @@ public class Minigame : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (!isInitialized)
+        {
+            return; // Minigame is broken
+        }
+
         if (currentIndex == trackInfo.Length)
         {
             if (hitList.Count == 0)
@@ -106,7 +120,6 @@ public class Minigame : MonoBehaviour
         {
             if (lookAheadIndex < trackInfo.Length && trackInfo[lookAheadIndex].time <= lookAheadTick)
             {
-                Debug.Log("Yo");
                 hitList.Add(trackInfo[lookAheadIndex]);
                 OnLookAhead?.Invoke(trackInfo[lookAheadIndex]);
 

@@ -13,9 +13,16 @@ public static class MidiParser
 
     static IEnumerable<Note> notes;
 
-    public static void ReadMidiFile()
+    public static bool ReadMidiFile(string relativePath)
     {
-        MidiFile midiFile = MidiFile.Read(Path.Combine(Application.dataPath, "MidiTracks/miditest.mid"));
+        string filepath = Path.Combine(Application.dataPath, relativePath);
+        if (!File.Exists(filepath))
+        {
+            Debug.LogError($"Could not find file {filepath}");
+            return false;
+        }
+
+        MidiFile midiFile = MidiFile.Read(filepath);
         notes = midiFile.GetNotes();
         ppq = ((TicksPerQuarterNoteTimeDivision)midiFile.TimeDivision).TicksPerQuarterNote;
 
@@ -26,6 +33,7 @@ public static class MidiParser
         {
             bpm = 120;
         }
+        retrun true;
     }
 
     public static NoteInfo[] GetTrackInfo()

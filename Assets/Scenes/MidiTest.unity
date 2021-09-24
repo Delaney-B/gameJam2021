@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e223ced803ca3684bac749884d6d3ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  midiPath: MidiTracks/miditest.mid
   lookAheadBeatOffset: 4
   left: {fileID: 493008789}
   up: {fileID: 1042597991}
