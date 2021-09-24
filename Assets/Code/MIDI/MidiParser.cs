@@ -62,7 +62,7 @@ public static class MidiParser
             if (lastNoteTime == note.Time)
             {
                 noteInfo = trackInfo[trackInfo.Count - 1];
-                noteInfo.noteNumbers.Add(noteInput);
+                noteInfo.input |= noteInput;
                 noteInfo.chord = true;
             }
             // New note
@@ -70,7 +70,7 @@ public static class MidiParser
             {
                 noteInfo = new NoteInfo
                 {
-                    noteNumbers = new List<NoteInput> { noteInput },
+                    input = noteInput,
                     time = note.Time,
                     chord = false
                 };

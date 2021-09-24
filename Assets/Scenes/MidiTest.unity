@@ -443,9 +443,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 913981692}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32661b91f46f9a4458b7e83e79941fd5, type: 3}
+  m_Script: {fileID: 11500000, guid: e223ced803ca3684bac749884d6d3ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookAheadBeatOffset: 4
   left: {fileID: 493008789}
   up: {fileID: 1042597991}
   down: {fileID: 579541540}

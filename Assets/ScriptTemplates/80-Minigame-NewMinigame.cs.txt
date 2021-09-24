@@ -1,0 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class #SCRIPTNAME# : Minigame
+{
+    protected override void Start()
+    {
+        base.Start();
+        OnLookAhead += #SCRIPTNAME#_OnLookAhead;
+        OnHit += #SCRIPTNAME#_OnHit;
+		#NOTRIM#
+		BeginMinigame();
+    }
+#NOTRIM#
+    protected override void Update()
+    {
+        base.Update();
+		#NOTRIM#
+    }
+#NOTRIM#
+	// Called when a note is resolved (hit or miss)
+    private void #SCRIPTNAME#_OnHit(NoteInfo noteInfo, HitType hitType)
+    {
+        #NOTRIM#
+    }
+#NOTRIM#
+	// Called when a note is available to reveal
+    private void #SCRIPTNAME#_OnLookAhead(NoteInfo noteInfo)
+    {
+        #NOTRIM#
+    }
+}
