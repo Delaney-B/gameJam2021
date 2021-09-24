@@ -730,6 +730,134 @@ public class @CalmciergeControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Minigame"",
+            ""id"": ""5595a6e7-70e1-45ee-9942-e45f1ca8c7ba"",
+            ""actions"": [
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Value"",
+                    ""id"": ""7d4901d6-d0ee-430f-9b87-b15d9b976f10"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Up"",
+                    ""type"": ""Button"",
+                    ""id"": ""a296248a-1c55-4024-9272-2a1dbf7ab708"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""e68348ac-f6f8-4921-b5e1-ffac74cec5ba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""cba49e66-3faa-4b75-ab90-07489d735ba7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""58a08b2c-8312-48be-b338-351cc36fe8a3"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd8f9a32-05b1-4bc8-a3da-704c10dfc8b1"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""805ccc8d-4bc8-4e27-b048-e10fc9003734"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7519ef4-7726-4409-a985-faa4f858fae9"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""199707cc-0faa-4c55-bb92-fea52a4a51a6"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ffaeb3a-7069-4b7c-839c-8042c0c3f6a4"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6aaa23f-b02a-4a9f-b0ec-c8a5cd0b94dc"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d3bfac9-0843-4c26-aa88-3a9110946fe9"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -811,6 +939,12 @@ public class @CalmciergeControls : IInputActionCollection, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        // Minigame
+        m_Minigame = asset.FindActionMap("Minigame", throwIfNotFound: true);
+        m_Minigame_Left = m_Minigame.FindAction("Left", throwIfNotFound: true);
+        m_Minigame_Up = m_Minigame.FindAction("Up", throwIfNotFound: true);
+        m_Minigame_Down = m_Minigame.FindAction("Down", throwIfNotFound: true);
+        m_Minigame_Right = m_Minigame.FindAction("Right", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1002,6 +1136,63 @@ public class @CalmciergeControls : IInputActionCollection, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // Minigame
+    private readonly InputActionMap m_Minigame;
+    private IMinigameActions m_MinigameActionsCallbackInterface;
+    private readonly InputAction m_Minigame_Left;
+    private readonly InputAction m_Minigame_Up;
+    private readonly InputAction m_Minigame_Down;
+    private readonly InputAction m_Minigame_Right;
+    public struct MinigameActions
+    {
+        private @CalmciergeControls m_Wrapper;
+        public MinigameActions(@CalmciergeControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Left => m_Wrapper.m_Minigame_Left;
+        public InputAction @Up => m_Wrapper.m_Minigame_Up;
+        public InputAction @Down => m_Wrapper.m_Minigame_Down;
+        public InputAction @Right => m_Wrapper.m_Minigame_Right;
+        public InputActionMap Get() { return m_Wrapper.m_Minigame; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MinigameActions set) { return set.Get(); }
+        public void SetCallbacks(IMinigameActions instance)
+        {
+            if (m_Wrapper.m_MinigameActionsCallbackInterface != null)
+            {
+                @Left.started -= m_Wrapper.m_MinigameActionsCallbackInterface.OnLeft;
+                @Left.performed -= m_Wrapper.m_MinigameActionsCallbackInterface.OnLeft;
+                @Left.canceled -= m_Wrapper.m_MinigameActionsCallbackInterface.OnLeft;
+                @Up.started -= m_Wrapper.m_MinigameActionsCallbackInterface.OnUp;
+                @Up.performed -= m_Wrapper.m_MinigameActionsCallbackInterface.OnUp;
+                @Up.canceled -= m_Wrapper.m_MinigameActionsCallbackInterface.OnUp;
+                @Down.started -= m_Wrapper.m_MinigameActionsCallbackInterface.OnDown;
+                @Down.performed -= m_Wrapper.m_MinigameActionsCallbackInterface.OnDown;
+                @Down.canceled -= m_Wrapper.m_MinigameActionsCallbackInterface.OnDown;
+                @Right.started -= m_Wrapper.m_MinigameActionsCallbackInterface.OnRight;
+                @Right.performed -= m_Wrapper.m_MinigameActionsCallbackInterface.OnRight;
+                @Right.canceled -= m_Wrapper.m_MinigameActionsCallbackInterface.OnRight;
+            }
+            m_Wrapper.m_MinigameActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Left.started += instance.OnLeft;
+                @Left.performed += instance.OnLeft;
+                @Left.canceled += instance.OnLeft;
+                @Up.started += instance.OnUp;
+                @Up.performed += instance.OnUp;
+                @Up.canceled += instance.OnUp;
+                @Down.started += instance.OnDown;
+                @Down.performed += instance.OnDown;
+                @Down.canceled += instance.OnDown;
+                @Right.started += instance.OnRight;
+                @Right.performed += instance.OnRight;
+                @Right.canceled += instance.OnRight;
+            }
+        }
+    }
+    public MinigameActions @Minigame => new MinigameActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1064,5 +1255,12 @@ public class @CalmciergeControls : IInputActionCollection, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+    }
+    public interface IMinigameActions
+    {
+        void OnLeft(InputAction.CallbackContext context);
+        void OnUp(InputAction.CallbackContext context);
+        void OnDown(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
     }
 }
