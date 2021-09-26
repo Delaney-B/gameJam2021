@@ -14,6 +14,7 @@ public class MoveOnBeat : MonoBehaviour
     public float beatDuration;
 
     public PlayerController player;
+    public int playerTargetBeat;
 
     public int stepNumber;
 
@@ -27,8 +28,6 @@ public class MoveOnBeat : MonoBehaviour
     public float stressReduce;
     public float stressAdd;
 
-    public bool hit;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -38,60 +37,62 @@ public class MoveOnBeat : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        playerTargetBeat = player.targetBeat;
         //If you're within the window for keeping the beat, move the player and relieve some stress. Else, you take stress :(
 
         //Check to make sure this is the correct target
+        if (stepNumber == playerTargetBeat)
+        {
+            if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
+            {
+                if (moveDir == Direction.up)
+                {
+                    MovePlayer();
+                    player.playerDirection = PlayerController.Direction.up;
+                }
+                else
+                {
+                    player.stress += stressAdd;
+                }
+            }
+            if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)))
+            {
+                if (moveDir == Direction.down)
+                {
+                    
 
-                if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
-                {
-                    if (moveDir == Direction.up && (stepNumber == player.targetBeat) && !hit)
-                    {
-                        MovePlayer();
-                        player.playerDirection = PlayerController.Direction.up;
-                    }
-                    else
-                    {
-                        player.stress += stressAdd;
-                    }
+                    MovePlayer();
+                    player.playerDirection = PlayerController.Direction.down;
                 }
-                if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)))
+                else
                 {
-                    if (moveDir == Direction.down && (stepNumber == player.targetBeat) && !hit)
-            {
-                hit = true;
-                player.targetBeat += 1;
-                
-                        MovePlayer();
-                        player.playerDirection = PlayerController.Direction.down;
-                    }
-                    else
-                    {
-                        player.stress += stressAdd;
-                    }
+                    player.stress += stressAdd;
                 }
-                if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)))
-                {
-                    if (moveDir == Direction.left && (stepNumber == player.targetBeat))
+            }
+            if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)))
             {
-                        MovePlayer();
-                        player.playerDirection = PlayerController.Direction.left;
-                    }
-                    else
-                    {
-                        player.stress += stressAdd;
-                    }
+                if (moveDir == Direction.left)
+                {
+                    MovePlayer();
+                    player.playerDirection = PlayerController.Direction.left;
                 }
-                if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)))
+                else
                 {
-                    if (moveDir == Direction.right && (stepNumber == player.targetBeat))
+                    player.stress += stressAdd;
+                }
+            }
+            if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)))
             {
-                        MovePlayer();
-                        player.playerDirection = PlayerController.Direction.right;
-                    }
-                    else
-                    {
-                        player.stress += stressAdd;
-                    }
+                if (moveDir == Direction.right)
+                {
+                    MovePlayer();
+                    player.playerDirection = PlayerController.Direction.right;
+                }
+                else
+                {
+                    player.stress += stressAdd;
+                }
+            }
         }
     }
     void FixedUpdate()

@@ -87,7 +87,9 @@ public class PlayerController : MonoBehaviour
         if (transform.position != transform.position)
         {
             StartCoroutine("Walk");
-           
+        } else
+        {
+            targetBeat += 1;
         }
     }
 }
