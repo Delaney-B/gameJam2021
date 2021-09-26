@@ -33,7 +33,7 @@ public static class MidiParser
         {
             bpm = 120;
         }
-        retrun true;
+        return true;
     }
 
     public static NoteInfo[] GetTrackInfo()
